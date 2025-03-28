@@ -1,244 +1,354 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Exam Form</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>منصة امتياز</title>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Styles */
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #166088;
-            --accent-color: #4fc3f7;
-            --warning-color: #ff9800;
-            --danger-color: #f44336;
-            --success-color: #4caf50;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --primary: #3A4E6D;
+            --secondary: #6B8FA7;
+            --accent: #A7C4BC;
+            --text: #2E2E2E;
+            --light: #F8F5F2;
+            --warning: #E3B23C;
+            --error: #A44A3F;
+            --success: #4A7B5D;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'El Messiri', serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            background-color: #f5f7fa;
-            color: #333;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: linear-gradient(rgba(248, 245, 242, 0.9), rgba(248, 245, 242, 0.9)), 
+                              url('https://www.transparenttextures.com/patterns/cream-pixels.png');
         }
 
         .container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-bottom: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        header {
+        .exam-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 2rem;
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 2rem;
         }
 
         h1 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-weight: 600;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .subtitle {
-            color: #666;
+            font-size: 1.1rem;
+            opacity: 0.9;
             font-weight: 300;
         }
 
-        .exam-info {
+        .exam-content {
+            padding: 0 2.5rem 2.5rem;
+        }
+
+        .timer-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background-color: var(--light-color);
-            padding: 15px;
-            border-radius: 8px;
+            justify-content: center;
+            margin: -1.5rem auto 2.5rem;
         }
 
         #timer {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--secondary-color);
-            background-color: rgba(22, 96, 136, 0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: var(--shadow);
             display: inline-flex;
             align-items: center;
-        }
-
-        #timer::before {
-            content: "⏳";
-            margin-right: 8px;
+            border: 2px solid var(--accent);
+            z-index: 10;
         }
 
         .warning-box {
-            background-color: rgba(255, 152, 0, 0.1);
-            border-left: 4px solid var(--warning-color);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
+            background-color: rgba(227, 178, 60, 0.08);
+            border-right: 3px solid var(--warning);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            position: relative;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .warning-box::before {
+            content: "!";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--warning);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         .warning-box strong {
-            color: var(--warning-color);
+            color: var(--warning);
+            font-size: 1.1rem;
         }
 
         .exam-frame-container {
             position: relative;
-            padding-bottom: 20px;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            min-height: 600px;
         }
 
         #examFrame {
             width: 100%;
-            height: 800px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            min-height: 600px;
+            border: none;
         }
 
         .footer {
             text-align: center;
-            margin-top: 20px;
-            color: #666;
+            margin-top: 3rem;
+            color: var(--secondary);
             font-size: 0.9rem;
+            padding: 1.5rem;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            background: linear-gradient(to right, #F5D6B6, #E3B23C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
         }
 
         /* Blocked state styling */
         .blocked-message {
             text-align: center;
-            padding: 50px;
-            background-color: rgba(244, 67, 54, 0.1);
-            border-radius: 10px;
-            margin-top: 50px;
+            padding: 4rem 2rem;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 2rem auto;
+            border-top: 4px solid var(--error);
         }
 
         .blocked-message h2 {
-            color: var(--danger-color);
-            margin-bottom: 20px;
+            color: var(--error);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
         }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 1.5rem;
             }
             
-            .exam-info {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
+            .header {
+                padding: 2rem 1.5rem;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            #timer {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .exam-content {
+                padding: 0 1.5rem 1.5rem;
+            }
+            
+            .exam-frame-container {
+                min-height: 400px;
             }
             
             #examFrame {
-                height: 600px;
+                min-height: 400px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Secure Online Examination</h1>
-            <p class="subtitle">Please complete the exam within the allotted time</p>
-        </header>
-
-        <div class="exam-info">
-            <div id="timer"><strong>⏳ Time Left: Loading...</strong></div>
-            <div class="warning-box">
-                <strong>Important:</strong> Switching tabs or windows will be considered a cheating attempt. 
-                After 3 attempts, you will be blocked from the exam.
+        <div class="exam-card">
+            <div class="header">
+                <div class="logo">منصة امتياز</div>
+                <h1>نظام الاختبارات الإلكترونية</h1>
+                <p class="subtitle">أكمل الاختبار في الوقت المحدد</p>
+            </div>
+            
+            <div class="exam-content">
+                <div class="timer-container">
+                    <div id="timer">🕒 الوقت المتبقي: 30:00</div>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>تنبيه:</strong> سيتم اعتبار تغيير النوافذ أو التبويبات محاولة غش. بعد 3 محاولات، سيتم إنهاء الاختبار تلقائيًا.
+                </div>
+                
+                <div class="exam-frame-container">
+                    <iframe id="examFrame" src="https://docs.google.com/forms/d/e/1FAIpQLSf7MH3MATd5UHbJScqQfjiTBdD3ef0P7KF__-O3GCmlN6kaDw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">
+                        جاري التحميل...
+                    </iframe>
+                </div>
             </div>
         </div>
-
-        <div class="exam-frame-container">
-            <iframe id="examFrame" src="https://docs.google.com/forms/d/e/1FAIpQLSf7MH3MATd5UHbJScqQfjiTBdD3ef0P7KF__-O3GCmlN6kaDw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">
-                Loading…
-            </iframe>
-        </div>
-
+        
         <div class="footer">
-            <p>© 2023 Secure Exam Platform. All rights reserved.</p>
+            <p>© 2023 منصة امتياز للاختبارات الإلكترونية | جميع الحقوق محفوظة</p>
         </div>
     </div>
 
     <script>
-        let maxCheatAttempts = 3;  
-        let warningThreshold = 2;  
-        let examDuration = 10 * 60; // 10 minutes in seconds
-        let currentExam = "exam20";  
+        // Configuration
+        const config = {
+            maxCheatAttempts: 3,
+            warningThreshold: 2,
+            examDuration: 30 * 60, // 30 minutes in seconds
+            currentExam: "exam-emtiaz"
+        };
 
-        // Reset block status if this is a new exam
-        if (localStorage.getItem("examId") !== currentExam) {
-            localStorage.removeItem("cheatCount");
-            localStorage.removeItem("blocked");
-            sessionStorage.clear();
-            localStorage.setItem("examId", currentExam);
+        // DOM Elements
+        const timerElement = document.getElementById("timer");
+        const examFrame = document.getElementById("examFrame");
+
+        // State Management
+        function initializeExam() {
+            if (localStorage.getItem("examId") !== config.currentExam) {
+                localStorage.removeItem("cheatCount");
+                localStorage.removeItem("blocked");
+                sessionStorage.clear();
+                localStorage.setItem("examId", config.currentExam);
+                return {
+                    cheatCount: 0,
+                    timeLeft: config.examDuration
+                };
+            }
+            return {
+                cheatCount: localStorage.getItem("cheatCount") ? parseInt(localStorage.getItem("cheatCount")) : 0,
+                timeLeft: sessionStorage.getItem("timeLeft") ? parseInt(sessionStorage.getItem("timeLeft")) : config.examDuration
+            };
         }
 
-        let cheatCount = localStorage.getItem("cheatCount") ? parseInt(localStorage.getItem("cheatCount")) : 0;
-        let timeLeft = sessionStorage.getItem("timeLeft") ? parseInt(sessionStorage.getItem("timeLeft")) : examDuration;
+        let { cheatCount, timeLeft } = initializeExam();
+
+        // Timer Functions
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
 
         function updateTimer() {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            document.getElementById("timer").innerHTML = `<strong>⏳ Time Left: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}</strong>`;
+            timerElement.textContent = `🕒 الوقت المتبقي: ${formatTime(timeLeft)}`;
 
             if (timeLeft <= 0) {
-                alert("⏳ Time is up! Submitting your test now...");
                 submitForm();
-            } else {
-                timeLeft--;
-                sessionStorage.setItem("timeLeft", timeLeft);
-                setTimeout(updateTimer, 1000);
+                return;
             }
+
+            timeLeft--;
+            sessionStorage.setItem("timeLeft", timeLeft);
+            setTimeout(updateTimer, 1000);
         }
 
-        function submitForm() {
-            let iframe = document.getElementById("examFrame").contentWindow.document;
-
+        // Form Submission
+        async function submitForm() {
+            alert("⏱️ انتهى الوقت! يتم إرسال الاختبار الآن...");
+            
             try {
-                let submitButton = iframe.querySelector('div[role="button"]:not([aria-disabled="true"])');
-
+                const iframeDoc = examFrame.contentWindow.document;
+                await new Promise(resolve => setTimeout(resolve, 500)); // Small delay
+                
+                const submitButton = iframeDoc.querySelector('div[role="button"]:not([aria-disabled="true"])');
+                
                 if (submitButton) {
                     submitButton.click();
-                    alert("✅ Your exam has been submitted successfully!");
+                    alert("✅ تم إرسال الاختبار بنجاح!");
                 } else {
-                    alert("⚠ Unable to auto-submit. Please submit manually.");
+                    alert("⚠ تعذر الإرسال التلقائي. يرجى الإرسال يدويًا.");
                 }
             } catch (error) {
-                alert("⚠ Google Forms blocked auto-submit. Please submit manually.");
+                console.error("Submission error:", error);
+                alert("⚠ تعذر الوصول إلى نموذج Google. يرجى الإرسال يدويًا.");
             }
-
+            
             sessionStorage.clear();
         }
 
+        // Cheating Prevention
         function logCheatingAttempt() {
             cheatCount++;
             localStorage.setItem("cheatCount", cheatCount);
 
-            console.log("User left the exam! Attempt #" + cheatCount);
-
-            if (cheatCount === warningThreshold) {
-                alert("⚠ Warning: Switching tabs is not allowed! One more attempt will reset your test.");
+            if (cheatCount === config.warningThreshold) {
+                alert("⚠ تحذير: لديك محاولة واحدة متبقية قبل إعادة الاختبار!");
             }
 
-            if (cheatCount >= maxCheatAttempts) {
-                alert("🚨 You have switched tabs too many times! You are now blocked from retaking the test.");
+            if (cheatCount >= config.maxCheatAttempts) {
+                alert("🚨 تم تجاوز الحد المسموح به. سيتم إنهاء الاختبار الآن.");
                 blockAccess();
             } else {
                 resetForm();
@@ -256,25 +366,30 @@
             document.body.innerHTML = `
                 <div class="container">
                     <div class="blocked-message">
-                        <h2>❌ Access Blocked</h2>
-                        <p>You have been blocked from this exam due to multiple unauthorized attempts to switch tabs/windows.</p>
-                        <p>Please contact your instructor for further assistance.</p>
+                        <h2>❌ تم تعليق الاختبار</h2>
+                        <p>لقد تم تجاوز الحد المسموح به من محاولات تغيير النافذة.</p>
+                        <p>يرجى التواصل مع المسؤول لإعادة تفعيل الاختبار.</p>
                     </div>
                 </div>
             `;
         }
 
-        document.addEventListener("visibilitychange", function() {
+        // Event Listeners
+        document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
                 logCheatingAttempt();
             }
         });
 
+        // Initialize
         window.onload = function() {
             if (localStorage.getItem("blocked") === "true") {
                 blockAccess();
             } else {
-                updateTimer();
+                // Initialize timer display immediately
+                timerElement.textContent = `🕒 الوقت المتبقي: ${formatTime(timeLeft)}`;
+                // Start countdown
+                setTimeout(updateTimer, 1000);
             }
         };
     </script>
